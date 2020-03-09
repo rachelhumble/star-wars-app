@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3500;
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -42,14 +42,13 @@ app.get("/add", (req, res) => {
 
 app.get("/api/characters/:character", (req, res) => {
     const character = req.params.character;
-    newChar.routeName = req.body.name.split(" ").join("").toLowerCase();
     console.log(character);
 
     let found;
 
     characters.forEach(i => {
         if(character === i.routeName) {
-            return res.json(i);
+            // return res.json(i);
             found = i;
         }
     });
@@ -59,6 +58,7 @@ app.get("/api/characters/:character", (req, res) => {
 
 app.post("/api/characters", (req, res) => {
     const newCharacter = req.body
+    newCharacter.routeName = req.body.name.split(" ").join("").toLowerCase();
     console.log(newCharacter);
     characters.push(newCharacter);
     res.json(newCharacter);
